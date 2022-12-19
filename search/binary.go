@@ -1,4 +1,4 @@
-package binary
+package search
 
 import (
 	"github.com/quxiaolong1504/Algorithms/constraints"

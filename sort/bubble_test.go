@@ -1,6 +1,7 @@
 package sort
 
 import (
+	"github.com/quxiaolong1504/Algorithms/constraints"
 	"github.com/stretchr/testify/assert"
 	"math/rand"
 	"testing"
@@ -8,11 +9,7 @@ import (
 
 func TestBubble(t *testing.T) {
 	arr := Bubble(genRandomArr(10))
-	for i := 0; i < len(arr)-1; i++ {
-		for j := i + 1; j < len(arr)-1; j++ {
-			assert.True(t, arr[i] < arr[j])
-		}
-	}
+	checkArrIsSorted(t, arr)
 }
 
 func genRandomArr(length int) []int {
@@ -22,4 +19,12 @@ func genRandomArr(length int) []int {
 		arr[i] = rand.Intn(max-min) + min
 	}
 	return arr
+}
+
+func checkArrIsSorted[T constraints.Ordered](t *testing.T, arr []T) {
+	for i := 0; i < len(arr)-1; i++ {
+		for j := i + 1; j < len(arr)-1; j++ {
+			assert.True(t, arr[i] < arr[j])
+		}
+	}
 }
