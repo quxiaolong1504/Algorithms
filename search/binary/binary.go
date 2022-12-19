@@ -8,7 +8,7 @@ import (
 func Search[T constraints.Ordered](arr []T, k T) int {
 	var l, r = 0, len(arr) - 1
 	for l <= r {
-		var mid = (l + r) / 2 // 避免 int 溢出
+		var mid = l/2 + r/2 // 避免 int 溢出
 		if arr[mid] == k {
 			return mid
 		} else if k < arr[mid] {
@@ -26,7 +26,7 @@ func SimilarSearch[T constraints.Number](arr []T, k T) int {
 
 	// 最后留两个元素
 	for l < r-1 {
-		var mid = (l + r) / 2
+		var mid = l/2 + r/2
 		if k < arr[mid] {
 			r = mid
 		} else {
