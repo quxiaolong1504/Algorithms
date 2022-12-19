@@ -43,6 +43,33 @@ func TestListReverse(t *testing.T) {
 	})
 }
 
+func TestListRemove(t *testing.T) {
+	head := NewList[int](1, 2, 3, 4)
+	err := head.Remove(0)
+	assert.Nil(t, err)
+
+	// 获取
+	node, err := head.Get(0)
+	assert.Nil(t, err)
+	assert.Equal(t, node.Data, 2)
+	//
+	head = NewList[int](1, 2, 3, 4)
+	err = head.Remove(2)
+	assert.Nil(t, err)
+}
+
+func TestListGet(t *testing.T) {
+	data := genRandomArr(100)
+	head := NewList[int](data...)
+
+	for i := 0; i < 100; i++ {
+		node, err := head.Get(i)
+		assert.Equal(t, node.Data, data[i])
+		assert.Nil(t, err)
+	}
+
+}
+
 func genRandomArr(length int) []int {
 	const min, max = -9999999, 9999999
 	var arr = make([]int, length)

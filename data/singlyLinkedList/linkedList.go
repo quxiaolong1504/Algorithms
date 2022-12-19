@@ -4,6 +4,7 @@
 package singlyLinkedList
 
 import (
+	"fmt"
 	"github.com/quxiaolong1504/Algorithms/constraints"
 )
 
@@ -88,4 +89,59 @@ func (h *List[T]) Reverse() {
 		cur = next
 	}
 	h.head, h.tail = h.tail, h.head
+}
+
+func (h *List[T]) Remove(position int) error {
+	if position < 0 || position >= h.Count() {
+		return fmt.Errorf("IllegalArgumentException")
+	}
+
+	// 总数建议
+	defer func() {
+		h.total--
+	}()
+
+	var prev *Node[T]
+	var cur = h.head
+	var count = 0
+
+	for cur != nil && count < position {
+		prev = cur
+		cur = cur.Next
+		count++
+	}
+	// 删除头结点
+	if prev == nil {
+		cur = h.head
+		h.head = cur.Next
+		cur = nil
+		return nil
+	}
+
+	// 删除尾节点
+	if cur.Next == nil {
+		h.tail = prev
+		cur = nil
+		return nil
+	}
+
+	// 删除中间节点
+	prev.Next = cur.Next
+	cur = nil
+
+	return nil
+}
+
+func (h *List[T]) Get(position int) (*Node[T], error) {
+	if position < 0 || position >= h.Count() {
+		return nil, fmt.Errorf("IllegalArgumentException")
+	}
+
+	var cur = h.head
+	var count = 0
+	for cur != nil && count < position {
+		cur = cur.Next
+		count++
+	}
+	return cur, nil
 }
