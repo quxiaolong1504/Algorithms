@@ -62,8 +62,16 @@ func TestListGet(t *testing.T) {
 	data := genRandomArr(100)
 	head := NewList[int](data...)
 
+	node, err := head.Get(-1)
+	assert.Nil(t, nil)
+	assert.NotNil(t, err)
+
+	node, err = head.Get(1000)
+	assert.Nil(t, nil)
+	assert.NotNil(t, err)
+
 	for i := 0; i < 100; i++ {
-		node, err := head.Get(i)
+		node, err = head.Get(i)
 		assert.Equal(t, node.Data, data[i])
 		assert.Nil(t, err)
 	}
